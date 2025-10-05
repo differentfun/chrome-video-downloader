@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "HLS Finder & Downloader",
+  "version": "0.1.0",
+  "description": "Trova flussi HLS (m3u8) nella tab corrente e consente di scaricarli in TS o convertirli in MP4 (beta)",
+  "permissions": [
+    "webRequest",
+    "storage",
+    "downloads",
+    "offscreen",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "action": {
+    "default_title": "HLS Downloader",
+    "default_popup": "src/popup.html"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"
+  }
+}
